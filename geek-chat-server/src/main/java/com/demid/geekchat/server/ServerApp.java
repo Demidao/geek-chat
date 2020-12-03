@@ -11,7 +11,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class ServerApp {
-
+    private final static int PORT = 8189;
     public static void main(String[] args) {
         EventLoopGroup bossGroup = new NioEventLoopGroup(1); // создание программного сервера, который обрабатывает подключение клиентов
         EventLoopGroup workerGroup = new NioEventLoopGroup(); // создание программного сервера, который работает с запросами клиентов
@@ -30,7 +30,7 @@ public class ServerApp {
                                                                                 // конвеер обработчиков (pipeline)
                         }
                     });
-            ChannelFuture future = b.bind(8189).sync(); // запускаем сервер. Bind() - указание серверу,
+            ChannelFuture future = b.bind(PORT).sync(); // запускаем сервер. Bind() - указание серверу,
                                                                 // что нужно запускаться на порту 8189, а sync() - сам запуск
                                                                 // Объект типа future - объект, которые содержит в себе инфо о какой-то выполняемой задаче - поток, асинхронная задача и т.п.
                                                                 // в данном случае используется для того, чтобы получать инфу о работающем сервере, что с ним происходит
