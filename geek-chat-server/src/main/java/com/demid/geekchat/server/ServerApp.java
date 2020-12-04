@@ -2,13 +2,12 @@ package com.demid.geekchat.server;
 
 import com.sun.tools.javac.Main;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 
 public class ServerApp {
     private final static int PORT = 8189;
@@ -26,7 +25,7 @@ public class ServerApp {
 
 
                         protected void initChannel(SocketChannel socketChannel) throws Exception { // при подключении клиента, инициализация клиента на сервере происходит тут
-                            socketChannel.pipeline().addLast(new MainHandler()); // после создания обработчика MainHandker, нужно его добавить в
+                            socketChannel.pipeline().addLast(new StringDecoder(), new StringEncoder(), new MainHandler()); // после создания обработчика MainHandker, нужно его добавить в
                                                                                 // конвеер обработчиков (pipeline)
                         }
                     });

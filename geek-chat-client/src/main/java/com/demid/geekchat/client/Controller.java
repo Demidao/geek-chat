@@ -1,5 +1,7 @@
 package com.demid.geekchat.client;
 
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,7 +19,9 @@ public class Controller implements Initializable { // управляет  сет
     TextArea mainArea;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        network = new Network(); // тут мы подключаемся сразу по сети к серваку. Не очень хорошо, нужно через "кнопку" в интерфейсе.
+        network = new Network((args -> {
+            mainArea.appendText((String) args[0] + "\n");
+        })); // тут мы подключаемся сразу по сети к серваку. Не очень хорошо, нужно через "кнопку" в интерфейсе.
     }
 
 
@@ -26,4 +30,11 @@ public class Controller implements Initializable { // управляет  сет
         msgField.clear();
         msgField.requestFocus();
     }
+
+    public void exitAction(ActionEvent actionEvent) {
+        network.close();
+        Platform.exit();
+    }
+
+
 }
